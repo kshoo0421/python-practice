@@ -551,36 +551,78 @@ print(sample(lst, 1))
 # students = [i.upper() for i in students]
 # print(students)
 
+'''
+불필요한 코드를 최소화한 파이썬이라 한 줄에 for문을 적용하는 것이 가능한 것 같다. 
+단순 반복 작업에 있어서는 코드를 작성하는 시간을 꽤 단축시킬 수 있을 것 같다. 
+'''
 
-# '''
-# Quiz 5) 당신은 Cocoa 서비스를 이용하는 택시 기사님입니다.
-# 50명의 승객과 매칭 기회가 있을 때, 총 탑승 승객 수를 구하는 프로그램을 작성하시오.
 
-# 조건 1: 승객별 운행 소요 시간은 5분 ~ 50분 사이의 난수로 정해집니다.
-# 조건 2: 당신은 소요 시간 5분 ~ 15분 사이의 승객만 매칭해야 합니다.
+'''
+Quiz 5) 당신은 Cocoa 서비스를 이용하는 택시 기사님입니다.
+50명의 승객과 매칭 기회가 있을 때, 총 탑승 승객 수를 구하는 프로그램을 작성하시오.
 
-# (출력문 예제)
-# [O] 1번째 손님 (소요시간 : 15분)
-# [ ] 2번째 손님 (소요시간 : 50분)
-# [O] 3번째 손님 (소요시간 : 5분)
-# ...
-# [ ] 50번째 손님 (소요시간 : 16분)
+조건 1: 승객별 운행 소요 시간은 5분 ~ 50분 사이의 난수로 정해집니다.
+조건 2: 당신은 소요 시간 5분 ~ 15분 사이의 승객만 매칭해야 합니다.
 
-# 총 탑승 승객 : 2분
-# '''
+(출력문 예제)
+[O] 1번째 손님 (소요시간 : 15분)
+[ ] 2번째 손님 (소요시간 : 50분)
+[O] 3번째 손님 (소요시간 : 5분)
+...
+[ ] 50번째 손님 (소요시간 : 16분)
+
+총 탑승 승객 : 2분
+'''
+# # 1차 시도
+# from random import *
+# cnt = 0
+# for i in range(1, 51):
+#     time = randrange(5, 51)
+#     if time >= 5 & time <= 15:
+#         select = 'O'    
+#         cnt += 1
+#     else:
+#         select = ' '
+#     print("[{0}] {1}번째 손님 (소요시간 : {2}분)".format(select, i, time))
+
+# print("총 탑승 승객 : {0}분".format(cnt))
+'''
+모든 손님이 O표시가 되었다. if문이 통과가 자유롭게 되는 것 같았다. 
+'''
+
+# # 2차 시도
+# from random import *
+# cnt = 0
+# for i in range(1, 51):
+#     time = randrange(5, 51)
+#     if time <= 15:
+#         select = 'O'    
+#         cnt += 1
+#     else:
+#         select = ' '
+#     print("[{0}] {1}번째 손님 (소요시간 : {2}분)".format(select, i, time))
+
+# print("총 탑승 승객 : {0}분".format(cnt))
+
+'''
+앞의 조건을 지우니 제대로 동작했다. & 연산자를 잘못 사용한 것 같다. 
+'''
 
 # from random import *
 # cnt = 0 # 총 탑승 승객 수
 # for i in range(1, 51): # 1 ~ 50 이라는 수(승객)
 #     time = randrange(5, 51) # 5분 ~ 50분 소요 시간
-#     if 5 <= time <= 15: # 5분 ~ 15분 이내의 손냄(매칭 성공), 탑승 승객 수 증가 처리
+#     if 5 <= time <= 15: # 5분 ~ 15분 이내의 손님(매칭 성공), 탑승 승객 수 증가 처리
 #         print("[O] {0}번째 손님 (소요시간 {1}분)".format(i, time))
 #         cnt += 1
 #     else: # 매칭 실패한 경우
 #         print("[ ] {0}번째 손님 (소요시간 : {1}분)".format(i, time))
 
 # print("총 탑승 승객 : {0} 분".format(cnt))
-
+'''
+오 저렇게 한 번에 사용하는 거구나. 나와 달랐던 점은 난 string형을 통해 매칭이 된 것 안된 것 같이 이용했다는 것이다. 
+그 외에 차이점은 if의 조건문 차이 정도?
+'''
 
 # # 함수 - 전달값과 반환값
 # def open_account():
@@ -608,7 +650,10 @@ print(sample(lst, 1))
 # balance = withdraw(balance, 500)
 # commission, balance = withdraw_night(balance, 500)
 # print("수수료 {0}원이며, 잔액은 {1}원입니다.".format(commission, balance))    
-
+'''
+함수는 def 를 통해 정의한다. 어차피 파이썬에서 자료형을 자동으로 인식하기 때문에 함수인지 아닌지만 표시해주면 된다.
+오히려 함수에 있어서는 일관성이 있다고 볼 수도 있다.
+'''
 
 # # 기본값
 # def profile(name, age, main_lang):
@@ -619,13 +664,16 @@ print(sample(lst, 1))
 # profile("김태호", 25, "자바")
 
 # # 같은 학교 같은 학년 같은 반 같은 수업.
-# def profile(name, age = 17, main_lang="파이썬"):
+# def profile(name, age = 17, main_lang = "파이썬"):  # 기본값(입력값이 없으면)으로 age 17, main_lang "파이썬"
 #     print("이름 : {0}\t나이 : {1}\t주 사용 언어 : {2}"\
 #           .format(name, age, main_lang))
 
 # profile("유재석")
 # profile("김태호")
-
+'''
+\ 후 엔터를 치면 같은 줄에 작성을 하는 것으로 친다. 가독성을 위해 이런 기능을 넣은 것으로 생각된다.
+기본값은 입력값이 없을 경우 기본으로 넣는 값을 의미한다. sparse matrix와 같은 구조에서 사용하면 좋을 것 같다.
+'''
 
 # # 키워드값
 # def profile(name, age, main_lang):
@@ -633,25 +681,28 @@ print(sample(lst, 1))
     
 # profile(name="유재석", main_lang="파이썬", age = 20)
 # profile(main_lang="자바", age = 25 ,name="김태호")
+'''
+키워드 = 값 으로 넣어주면 변수(키워드)의 순서가 달라진다고 하더라도 값을 잘 넣을 수 있다.
+여러 변수 중 특정 변수에 값을 넣어야 할 때 사용할 것 같다.
+'''
 
 
 # 가변인자
-# def profile(name, age, lang1, lang2, lang3, lang4, lang5):
-#     print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
-#     print(lang1, lang2, lang3, lang4, lang5)
+def profile(name, age, lang1, lang2, lang3, lang4, lang5):
+    print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
+    print(lang1, lang2, lang3, lang4, lang5) 
 
-# profile("유재석", 20, "Python", "Java", "C", "C++", "C#")
-# profile("김태호", 25, "Kotlin", "Swift", "", "")
+profile("유재석", 20, "Python", "Java", "C", "C++", "C#")
+profile("김태호", 25, "Kotlin", "Swift", "", "")
 
-# def profile(name, age, *language):
-#     print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
-#     for lang in language:
-#         print(lang, end=" ")
-#     print()
+def profile(name, age, *language):
+    print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
+    for lang in language:
+        print(lang, end=" ")
+    print()
         
-# profile("유재석", 20, "Python", "Java", "C", "C++", "C#", "JavaScript")
-# profile("김태호", 25, "Kotlin", "Swift")
-
+profile("유재석", 20, "Python", "Java", "C", "C++", "C#", "JavaScript")
+profile("김태호", 25, "Kotlin", "Swift")
 
 # # 지역변수와 전역변수
 # gun = 10

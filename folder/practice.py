@@ -689,22 +689,29 @@
 '''
 
 
-# 가변인자
-def profile(name, age, lang1, lang2, lang3, lang4, lang5):
-    print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
-    print(lang1, lang2, lang3, lang4, lang5) 
+# # 가변인자
+# def profile(name, age, lang1, lang2, lang3, lang4, lang5):
+#     print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
+#     print(lang1, lang2, lang3, lang4, lang5) 
 
-profile("유재석", 20, "Python", "Java", "C", "C++", "C#")
-profile("김태호", 25, "Kotlin", "Swift", "", "")
+# profile("유재석", 20, "Python", "Java", "C", "C++", "C#")
+# profile("김태호", 25, "Kotlin", "Swift", "", "")    # 빈칸으로 처리. 매번 빈칸으로 처리하기 귀찮
+# # 이럴 때 쓰는 것이 가변인자
 
-def profile(name, age, *language):
-    print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
-    for lang in language:
-        print(lang, end=" ")
-    print()
+# def profile(name, age, *language):  # * 사용
+#     print("이름 : {0}\t나이 : {1}\t".format(name, age), end=" ")
+#     for lang in language:
+#         print(lang, end=" ")
+#     print()
         
-profile("유재석", 20, "Python", "Java", "C", "C++", "C#", "JavaScript")
-profile("김태호", 25, "Kotlin", "Swift")
+# profile("유재석", 20, "Python", "Java", "C", "C++", "C#", "JavaScript")
+# profile("김태호", 25, "Kotlin", "Swift")
+
+'''
+한 변수에 0개부터 여러 종류를 넣을 수 있을 때 사용하는 것이 가변인자라고 한다. 
+c에서는 *가 포인터 역할로 쓰였지만, 여기서는 파이썬에서는 마치 집합처럼 사용되는 것 같다. 
+'''
+
 
 # # 지역변수와 전역변수
 # gun = 10
@@ -724,6 +731,13 @@ profile("김태호", 25, "Kotlin", "Swift")
 # gun = checkpoint_ret(gun, 2)
 # print("남은 총 : {0}".format(gun))
 
+'''
+c나 c#에서는 전역변수의 경우 지역변수와 이름이 겹칠 경우 지역변수를 우선으로 사용하고, 아닐 경우 전역변수로 취급하는데
+여기서는 외부에 있는 전역 변수를 global을 통해 한 번 더 사용한다고 선언한다.
+나름의 장점은 있을 것으로 보이나, 파이썬에서 전역변수를 사용하기는 다소 귀찮을 것으로 생각된다.
+'''
+
+
 # '''
 # Quiz 6) 표준 체중을 구하는 프로그램을 작성하시오
 
@@ -742,6 +756,22 @@ profile("김태호", 25, "Kotlin", "Swift")
 # 키 175cm 남자의 표준 체중은 67.38kg입니다.
 # '''
 
+# # 1차 시도
+# gender = 'x'
+# while(gender != 'm' and gender != 'f') : # 성별이 남자이거나 여자라면 탈출
+#     gender = input("성별을 입력하세요 (m / f) : ")
+# height = input("키를 입력하세요(m 단위) : ")
+
+# if (gender == 'm'):
+#     print("키 {0}cm 남자의 표준 체중은 {1}kg 입니다.".format(float(height)*100, float(height)*float(height)*22))
+# else :
+#     print("키 {0}cm 여자의 표준 체중은 {1}kg 입니다.".format(float(height)*100, float(height)*float(height)*21))
+    
+'''
+소숫점을 잘 모르겠다. 이건 모르는 거라서 더 시도를 하기 보다는 정답을 보는 것이 나을 것 같다. 
+'''
+
+
 # def std_weight(height, gender): # 키 m단위(실수), 성별 "남자" / "여자"
 #     if gender == "남자":
 #         return height * height * 22
@@ -750,30 +780,49 @@ profile("김태호", 25, "Kotlin", "Swift")
     
 # height = 175 # cm 단위
 # gender = "남자"
-# weight = std_weight(height/100, gender)
+# weight = round(std_weight(height/100, gender), 2)
 # print("키 {0}cm {1}의 표준 체중은 {2}kg 입니다.".format(height, gender, weight))
+
+'''
+우선 함수를 만들었다. 소수점 둘째자리까지 표시하는 방법은 round()를 이용하면 된다. 
+'''
 
 
 # # 표준 입출력
+# print("Python", "Java", sep=", ", end="?") # sep은 두 단어 사이를 ,로 이어줌. end 는 맨 뒤에 글자(기존 줄바꿈)를 바꿔줌(=줄바꿈도 안됨)
+# print("무엇이 더 재밌을까요?")
+
 # import sys
-# print("Python", "Java", file=sys.stdout)
-# print("Python", "Java", file=sys.stderr)
+# print("Python", "Java", file=sys.stdout)    # 표준 출력
+# print("Python", "Java", file=sys.stderr)    # 에러 처리 가능
 
 # # 시험 성적
-# scored = {"수학":0, "영어":50, "코딩":100}
-# for subject, score in scores.items():
+# scores = {"수학":0, "영어":50, "코딩":100}  # 배열을 :를 통해 연결하고, 각 자료형이 다르므로 
+# for subject, score in scores.items():   # 이 코드에서 바로 변수들로 받을 수 있는 것 같다. 
+#                                         # items()를 쓴 이유는 이 변수들을 받으려는 목적 같다. 
 #     print(subject, score)
-#     print(subject.ljust(8), str(score).rjust(4), sep=:"")
+#     print(subject.ljust(8), str(score).rjust(4), sep=":")    # ljust : 8칸 공간확보 후 왼쪽으로 정렬, rjust : 반대
 
 # # 은행 대기순번표
 # # 001, 002, 003, ..., 
 # for num in range(1, 21):
-#     print("대기번호 : " + str(num.zfill(3)))
+#     print("대기번호 : " + str(num.zfill(3))) # zfill(number) : number만큼의 공간을 확보하고 나머지를 0으로 채움
 
-# answer = input("아무 값이나 입력하세요 : ")
+# answer = input("아무 값이나 입력하세요 : ") # 사용자 입력을 받을 때는 항상 문자열로 입력을 받음
 # answer = 10
 # print(type(answer))
 # print("입력하신 값은 " + answer + "입니다.")
+'''
+sep과 end를 잘 사용하면 print를 자유롭게 사용할 수 있을 것 같다. 
+sys를 들여와서 표준 출력과 에러 처리가 가능하다. 에러 처리는 디버깅할 때 유용할 것 같다.
+배열에서 :를 통해 여러 자료형을 묶어서 저장하고, .items()를 통해 한 번에 가져오는 것이 가능한 것 같다.
+이를 잘 쓸지는 모르겠지만 한 번 짚고 넘어가는 것이 나을 것 같다.
+
+공간확보 및 정렬은 c언어에서 %d 사이에 점을 찍고 숫자들을 배열해가며 정리했었는데 
+이렇게 함수화(ljust, rjust)시키는 것이 오히려 더 직관적인 것 같다. 
+
+사용자 입력을 받을 때에는 항상 문자열로 인식이 되는데, 이에 맞는 형변환이 제 때 이루어져야할 것 같다.
+'''
 
 
 # # 다양한 출력포맷
@@ -784,7 +833,7 @@ profile("김태호", 25, "Kotlin", "Swift")
 # print("{0: >+10}".format(-500))
 # # 왼쪽 정렬하고, 빈칸으로 _로 채움
 # print("{0:_<10}".format(500))
-# # 3자리마다 콤마를 찍어주기
+# # 3자리마다 콤마를 찍어주기(thousand 단위라 기본 지원)
 # print("{0:,}".format(1000000000000))
 # # 3자리마다 콤마를 찍어주기, +- 부호도 붙이기
 # print("{0:+,}".format(1000000000000))
@@ -796,21 +845,27 @@ profile("김태호", 25, "Kotlin", "Swift")
 # print("{0:f}".format(5/3))
 # # 소수점 특정 자리수까지만 표시(소수점 3째 자리에서 반올림)
 # print("{0:2f}".format(5/3))
+'''
+규칙은 나중에 다시 정리할 필요는 있을 것 같다. 
+개념적인 문제라기보다는 사용법의 문제라 찾아보면서 하는 것이 더 도움될 것 같다. 
+'''
 
 
 # # 파일입출력
-# score_file = open("score.txt", "w", encoding="utf8")
+# score_file = open("score.txt", "w", encoding="utf8")    # "w"는 덮어쓰기
 # print("수학 : 0", file=score_file)
 # print("영어 : 50", file=score_file)
-# score_file.close()
+# score_file.close()  # 파일을 열었으면 닫아주기
 
-# score_file = open("score.txt", "r", encoding="utf8")
+# score_file = open("score.txt", "a", encoding="utf8")    # "a"는 이어쓰기
 # score_file.write("과학 : 80")
-# score_file.write("\n코딩 : 100")
-# print(score_file.read())
+# score_file.write("\n코딩 : 100")    # 줄바꿈도 넣어줘야함.
+
+# score_file = open("score.txt", "r", encoding= "utf8") # "r"은 읽어오겠다. 
+# print(score_file.read())    # 한 번에 읽기
 # score_file.close()
 
-# score_file = open("score.txt", "r", encoding= "utf8")
+# score_file = open("score.txt", "r", encoding= "utf8")  
 # print(score_file.readline(), end="")    # 줄별로 읽기, 한 줄 읽고 커서는 다음 줄로 이동
 # print(score_file.readline(), end="")
 # print(score_file.readline(), end="")
@@ -820,17 +875,22 @@ profile("김태호", 25, "Kotlin", "Swift")
 # score_file = open("score.txt", "r", encoding="utf8")
 # while True:
 #     line = score_file.readline()
-#     if not line:
+#     if not line:    # 읽어올 내용이 없으면 탈출
 #         break
 #     print(line, end="")
 # score_file.close()
 
 # score_file = open("score.txt", "r", encoding="utf8")
-# lines = score_file.readlines()  # list 형태로 저장
+# lines = score_file.readlines()  # 모든 내용을 가져와서 list 형태로 저장
 # for line in lines:
 #     print(line, end="")
     
 # score_file.close()
+'''
+특정 파일을 여는 것은 다른 언어에서는 해본 적이 없는 것 같아 조금 낯설다. 
+각 기능들의 개념을 이해하기는 어렵지 않으나 코드를 쓸 때 바로바로 나올지는 잘 모르겠다. 
+'''
+
 
 
 # # pickle
@@ -845,6 +905,11 @@ profile("김태호", 25, "Kotlin", "Swift")
 # profile = pickle.load(profile_file) # file에 있는 정보를 profile에 불러오기
 # print(profile)
 # profile_file.close()
+'''
+피클 : 프로그램에서 사용하고 있는 데이터를 파일로 저장해주는 것
+항상 파일을 실행하면 데이터가 초기화되었는데,
+데이터 저장과 불러오기의 기초적인 부분인 것 같다. 
+'''
 
 
 # # with
